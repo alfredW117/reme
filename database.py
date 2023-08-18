@@ -2,7 +2,7 @@ import psycopg2
 
 #hacer conexion bd
 def obtener_conexion():
-    conn = psycopg2.connect(host='ec2-44-212-250-48.compute-1.amazonaws.com', port=5432, database='daprs7gajn8iue', user='uxkmtjlhyxabiw', password='57f31dea73be201545726868c0a3ddffe9d07bc66c2500113f40b24224f4a38c')
+    conn = psycopg2.connect(host='ec2-52-206-36-147.compute-1.amazonaws.com', port=5432, database='d5j7em44t5al2j', user='fygmqqygxiketd', password='a5b93a5445a3906910014ca6d7824e8153087e98311d0ebac475b74a0d8d62b6')
     if conn is None:
         print('Error al conectar a la base de datos')
     else:
