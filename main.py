@@ -59,6 +59,3 @@ def editar_datos_serv():
 def eliminar_serv(id):
     borrar_serv(id)
     return redirect('/registrar')
-
-if __name__ == '__main__':
-    app.run(debug=True)
