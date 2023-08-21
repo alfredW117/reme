@@ -1,7 +1,8 @@
 /* Reset de estilos para asegurarse de que no haya estilos predeterminados influyendo */
-body, h1, h2, h3, p, a, ul, li, footer {
+body, h1, h2, h3, p, a, ul, li, footer, td{
     margin: 0;
     padding: 0;
+    background: rgba(250, 242, 242, 0.911);
 }
 
 /* Estilos para el encabezado de la barra de navegación */
@@ -50,7 +51,7 @@ body, h1, h2, h3, p, a, ul, li, footer {
 
 /* Estilos para el pie de página */
 .pie {
-    background-color:rgba(250, 242, 242, 0.911);
+    background-color: #333;
     color: white;
     text-align: center;
     padding: 10px 0;
