@@ -6,7 +6,7 @@ app = Flask(_name_)
 
 @app.route('/')
 def index():
-    return "hola"
+    example-app-1234567890ab.herokuapp.com
 
 
 @app.route('/datos_dipo', methods=['POST'])
