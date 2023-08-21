@@ -78,7 +78,3 @@ def save():
     return "Datos almacenados en la base de datos con éxito."
 
 #----------------------------------------------------------------
-
-
-if _name_ == '_main_':
-    app.run(debug=True,port=3000)
