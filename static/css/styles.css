@@ -2,7 +2,7 @@
 body, h1, h2, h3, p, a, ul, li, footer, td{
     margin: 0;
     padding: 0;
-    background: rgba(250, 242, 242, 0.911);
+    color: rgba(250, 242, 242, 0.911);
 }
 
 /* Estilos para el encabezado de la barra de navegación */
