@@ -22,7 +22,7 @@ body, h1, h2, h3, p, a, ul, li, footer {
 /* Cambiar el color de los enlaces cuando se pasa el cursor sobre ellos */
 .b_navegacion a:hover {
     background-color: #ddd;
-    color: black;
+    color: white;
 }
 
 /* Estilos para el contenedor principal */
