@@ -1,59 +1,30 @@
+from src.config.database import obtener_conexion
 
-from sqlalchemy import Column, Integer, String, ForeignKey
-from sqlalchemy.orm import relationship
-from sqlalchemy.ext.declarative import declarative_base
-from database import obtener_conexion
-
-def insertar_dtos(servidor, url, estatus, metodos, fecha, tiempo, id_monitoreo):
-    conn=obtener_conexion()
-    query= "INSERT INTO servicios VALUES('"+servidor+"','"+url+"','"+estatus+"','"+metodos+"','"+fecha+"', '"+tiempo+"',"+id_monitoreo+");"
-    cursor=conn.cursor()
-    cursor.execute(query)
+def insertar_dispositivo( id_server, servidor, url, estatus, metodo, tiempo,fecha ):
+    conn= obtener_conexion()
+    query = "INSERT INTO public.servers (id_server, servidor, url, estatus, metodo, tiempo, fecha ) VALUES ('"+id_server+"','"+servidor+"','"+url+"','"+estatus+"','"+metodo+"','"+tiempo+"','"+fecha+"');"
+    cur_conn = conn.cursor()
+    valor= cur_conn.execute(query)
     conn.commit()
-    conn.close()
-    print(query)
-    return "datos insertados correctamente"
-
-def consultar_servicio():
-    conn=obtener_conexion()
-    query= "SELECT * FROM servicios"
-    cursor= conn.cursor()
-    valor =cursor.execute(query)
-    lservicios =cursor.fetchall()
-    cursor.close()
-    conn.close()
-    print(lservicios)
-    return lservicios
-
-def consultar_servicio1(id):
-    conn=obtener_conexion()
-    query= "SELECT * FROM servicios where Servidor='"+id+"';"
-    cursor= conn.cursor()
-    valor =cursor.execute(query)
-    lservicios =cursor.fetchone()
-    cursor.close()
-    conn.close()
-    print(lservicios)
-    return lservicios
-
-def modificar_serv(servidor, url, estatus, metodos, fecha, tiempo, id_monitoreo):
-    conn=obtener_conexion()
-    query="UPDATE servicios SET Url='"+url+"', Estatus='"+estatus+"', Metodos='"+metodos+"', Fecha='"+fecha+"', Tiempo='"+tiempo+"', id_monitoreo="+id_monitoreo+" WHERE Servidor='"+servidor+"';"
-    cursor=conn.cursor()
-    valor=cursor.execute(query)
-    conn.commit()
-    cursor.close()
+    cur_conn.close()
     conn.close()
     return valor
 
-  
-
-def borrar_serv(id):
-    conn=obtener_conexion()
-    query="DELETE FROM servicios where servidor='"+id+"';"
-    cursor=conn.cursor()
-    valor=cursor.execute(query)
-    conn.commit()
-    cursor.close()
+def modificar_dispositivo(id_server, servidor, url, estatus, metodo, tiempo,fecha):
+    conn= obtener_conexion()
+    query = "UPDATE public.servers SET (servidor '"+servidor+"', url '"+url+"', estatus '"+estatus+"', metodo '"+metodo+"', tiempo '"+tiempo+"', fecha '"+fecha+"' ) WHERE id = "+id_server+"' ;"
+    cur_conn= conn.cursor()
+    valor=cur_conn.execute(query)
+    ldispositivos= cur_conn.fetchall()
     conn.close()
-    return valor
+    return ldispositivos
+
+def consultar_dispositivo():
+    conn= obtener_conexion()
+    query = "SELECT * FROM servers ;"
+    cur_conn= conn.cursor()
+    valor=cur_conn.execute(query)
+    layuda= cur_conn.fetchall()
+    conn.close()
+    cur_conn.close()
+    return layuda
