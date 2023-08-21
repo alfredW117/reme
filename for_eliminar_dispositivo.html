@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form action="{{url_for('eliminar_dispo')}} method=post">
+        <label>id equipo:</label>
+        <input type="text" name="id_dispo" id="id_dispo" required>
+        <input type="reset" value="Cancelar">
+        <input type="submit" value="Guardar">
+    </form>
+
+    <section>
+        <div>
+        <h2>Lista de dipositivos</h2>
+            <table>
+                <thead>Dispositivos</thead>
+                <tbody>
+                <tr>
+                   <td>Id usuario</td>
+                    <td>Id equipo</td>
+                    <td>Nombre</td>
+                    <td>No.Serie</td>
+                    <td>Fabricante</td>
+                    <td>Marca</td>
+                    <td>Ip asignada</td>
+                    <td>Modificar</td>
+                    <td>Eliminar</td>
+                </tr>
+                {% for dispositivo in lista: %}
+                    <tr>
+                        <td>{{dispositivo[6]}}</td>
+                        <td>{{dispositivo[0]}}</td>
+                        <td>{{dispositivo[1]}}</td>
+                        <td>{{dispositivo[2]}}</td>
+                        <td>{{dispositivo[3]}}</td>
+                        <td>{{dispositivo[4]}}</td>
+                        <td>{{dispositivo[5]}}</td>
+                        <td><a href="{{url_for('for_eliminar_-dispositivo',id=dispositivo[0])}}">ELIMINAR</a></td>
+                        <td>Eliminar</td>
+
+                    </tr>
+                {%endfor%}
+                </tbody>
+
+            </table>
+
+        </div>
+    </section>
+
+</body>
+</html>
+</body>
+</html>
