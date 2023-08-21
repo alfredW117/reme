@@ -6,8 +6,7 @@ app = Flask(_name_)
 
 @app.route('/')
 def index():
-    lista = consultar_dispositivo()
-    return render_template('form_dispositivos.html', layuda=lista)
+    return "hola"
 
 
 @app.route('/datos_dipo', methods=['POST'])
