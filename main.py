@@ -1,64 +1,84 @@
 from flask import Flask, render_template, request, redirect
-from model_u import insertar_dtos,consultar_servicio, modificar_serv, consultar_servicio1,borrar_serv
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from src.model.modelo_dispositivo import insertar_dispositivo, consultar_dispositivo, modificar_dispositivo,obtener_conexion
 
-
-
-
-app = Flask(__name__)
+app = Flask(_name_)
 
 
 @app.route('/')
 def index():
-    return render_template("inicio.html")
+    lista = consultar_dispositivo()
+    return render_template('form_dispositivos.html', layuda=lista)
 
 
-
-
-
-@app.route("/registrar")
-def datos_regi():
-    lista=consultar_servicio()
-    return render_template('form_registrar.html',lserv=lista)
-
-@app.route("/datos_regis", methods=["POST"])
-def datos_regis():
-    servidor=request.form["servi"]
+@app.route('/datos_dipo', methods=['POST'])
+def datos_dispo():
+    id_server=request.form["id_server"]
+    servidor=request.form["servidor"]
     url=request.form["url"]
     estatus=request.form["estatus"]
     metodo=request.form["metodo"]
-    fecha=request.form["fecha_R"]
     tiempo=request.form["tiempo"]
-    ID_monitoreo= request.form["id_m"]
-
-    valor =insertar_dtos(servidor, url, estatus, metodo,fecha,tiempo, ID_monitoreo)
-    print(valor)
-    return redirect("/registrar")
+    fecha=request.form["fecha"]
+    valor =insertar_dispositivo( id_server, servidor, url, estatus, metodo, tiempo,fecha )
+    return "Registro correcto"
 
 
-@app.route("/editar_serv/<id>")
-def editar_serv(id):
-    lista_serv=consultar_servicio1(id)
-    return render_template('editar_servicio.html',lserv = lista_serv)
+@app.route('/form_editar_dispo/<id>')
+def form_editar_dispo(id):
+    return render_template("for_editar_dispo.html") #importante anexar " lista=lista_dispositivo "
 
-@app.route("/editar_datos_serv", methods=["POST"])
-def editar_datos_serv():
-    servidor=request.form["servi"]
-    url=request.form["url"]
-    estatus=request.form["estatus"]
-    metodo=request.form["metodo"]
-    fecha=request.form["fecha_R"]
-    tiempo=request.form["tiempo"]
-    ID_monitoreo= request.form["id_m"]
+@app.route('/datos_editar_dispo', methods=['POST'])
+def modificar_dispositivo():
+    servidor = request.form["servidor"]
+    url = request.form["url"]
+    estatus = request.form["estatus"]
+    metodo = request.form["metodo"]
+    tiempo = request.form["tiempo"]
+    fecha = request.form["fecha"]
+    id_server = request.form["id_server"]
+    valor = insertar_dispositivo(id_server, servidor, url, estatus, metodo, tiempo, fecha )
+    return redirect('/datos_editar_dispo')
 
-    update_serv =modificar_serv(servidor, url, estatus, metodo,fecha,tiempo, ID_monitoreo)
-    return redirect("/registrar")
-   
-@app.route("/eliminar_serv/<id>")
-def eliminar_serv(id):
-    borrar_serv(id)
-    return redirect('/registrar')
+@app.route("/form_eliminar_dispo/<id>")
+def form_eliminar_dispositivo(id):
+    conn = obtener_conexion()
+    cur_conn = conn.cursor()
+    query = "DELETE FROM servers WHERE id_server = "+ id +""
+    cur_conn.execute(query, (id,))
+    conn.commit()
+    conn.close()
+    cur_conn.close()
+    return redirect('/')
 
-if __name__ == '__main__':
-    app.run(debug=True)
+#----------------------------------------------------------------
+
+@app.route("/datos_dispo/" , methods=["POST"])
+def guardar():
+    estatus = request.form['estatus']
+    conn = obtener_conexion()
+    cursor = conn.cursor()
+    insert_query = "INSERT INTO estatus (estatus) VALUES (%s)"
+    cursor.execute(insert_query, (estatus,))
+    conn.commit()
+    cursor.close()
+
+    return "Datos almacenados en la base de datos con éxito."
+
+
+@app.route("/datos_dispo/" , methods=["POST"])
+def save():
+    metodo = request.form['metodo']
+    conn = obtener_conexion()
+    cursor = conn.cursor()
+    insert_query = "INSERT INTO metodo (estatus) VALUES (%s)"
+    cursor.execute(insert_query, (metodo,))
+    conn.commit()
+    cursor.close()
+
+    return "Datos almacenados en la base de datos con éxito."
+
+#----------------------------------------------------------------
+
+
+if _name_ == '_main_':
+    app.run(debug=True,port=3000)
